@@ -2,8 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+:root {
+  --main-bg-color: #00224d;
+  --primary-color: #00224d;
+  --main-text-color: #e7e7e7;
+  --event-color: #F44336;
+  --base: 8px;
+  --base-2: 16px;
+  --base-3: 24px;
+  --base-4: 32px;
+  --base-5: 40px;
+  --base-6: 48px;
+  --base-7: 56px;
+}
+
+* {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
 }
