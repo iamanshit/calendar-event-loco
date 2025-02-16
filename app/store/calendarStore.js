@@ -1,5 +1,6 @@
 "use client"; // Ensure Zustand store runs only on the client
 
+import * as dayjs from "dayjs";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -7,10 +8,10 @@ const calendarStore = create(
   devtools(
     persist(
       (set) => ({
-        currMonth: new Date().getMonth(),
+        currMonth: dayjs().month(),
         setMonth: (month) => set({ currMonth: month }),
 
-        currYear: new Date().getFullYear(),
+        currYear: dayjs().year(),
         setYear: (year) => set({ currYear: year }),
 
         events: [],
@@ -30,7 +31,7 @@ const calendarStore = create(
             events: state.events.filter((event) => event.id !== id),
           })),
       }),
-      { name: "calendar_view" }
+      { name: "calendar_view", skipHydration: true }
     )
   )
 );
