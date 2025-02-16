@@ -1,8 +1,25 @@
+"use client";
+
+import * as dayjs from "dayjs";
 import { FcCalendar } from "react-icons/fc";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+import calendarStore from "../../app/store/calendarStore";
 import styles from "./Header.module.scss";
 
 export default function Header() {
+  const { setMonth, currMonth } = calendarStore();
+
+  const getCurrMonth = () => {
+    setMonth(dayjs().month());
+  };
+
+  const getPrvMonth = () => {
+    setMonth(currMonth - 1);
+  };
+
+  const getNxtMonth = () => {
+    setMonth(currMonth + 1);
+  };
   return (
     <div className={styles.mainContainer}>
       <div className={styles.mainHead}>
@@ -11,14 +28,18 @@ export default function Header() {
             <FcCalendar size={30} />
             <h2 className={styles.appName}>Calendar</h2>
             <div className={styles.nav}>
-              <button className={styles.button}>Today</button>
-              <MdNavigateBefore size={30} />
-              <MdNavigateNext size={30} />
+              <button className={styles.button} onClick={getCurrMonth}>
+                Today
+              </button>
+              <MdNavigateBefore onClick={getPrvMonth} size={30} />
+              <MdNavigateNext onClick={getNxtMonth} size={30} />
             </div>
           </div>
         </div>
         <div className={styles.currDate}>
-          <p>23 January 2024</p>
+          <p>
+            {dayjs(new Date(dayjs().year(), currMonth)).format("MMMM YYYY")}
+          </p>
         </div>
         <div className={styles.right}>
           <button className={styles.button}>Create Event</button>
