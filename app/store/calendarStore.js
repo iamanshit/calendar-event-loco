@@ -3,17 +3,17 @@
 import * as dayjs from "dayjs";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
+import { getMonth } from "../../utils/getMonthDays";
 
 const calendarStore = create(
   devtools(
     persist(
       (set) => ({
+        datesArray: getMonth(),
         currMonth: dayjs().month(),
-        setMonth: (month) => set({ currMonth: month }),
-
-        currYear: dayjs().year(),
-        setYear: (year) => set({ currYear: year }),
-
+        setMonth: (index) => {
+          set({ datesArray: getMonth(index), currMonth: index });
+        },
         events: [],
 
         addEvent: (event) =>
