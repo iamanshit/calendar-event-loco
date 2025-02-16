@@ -41,9 +41,6 @@ export default function Header() {
             {dayjs(new Date(dayjs().year(), currMonth)).format("MMMM YYYY")}
           </p>
         </div>
-        <div className={styles.right}>
-          <button className={styles.button}>Create Event</button>
-        </div>
       </div>
     </div>
   );

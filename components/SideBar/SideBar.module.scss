@@ -2,7 +2,7 @@
   width: 256px;
   .eventCtn {
     height: 60%;
-    border: 2px var(--main-text-color) solid;
+    border: 2px var(--border-color) solid;
     margin: var(--base-2);
     padding: var(--base);
     border-radius: var(--base-2);
@@ -12,7 +12,7 @@
       border-top-left-radius: var(--base-2);
       border-top-right-radius: var(--base-2);
       padding: var(--base) var(--base-2);
-      border-bottom: 2px var(--main-text-color) solid;
+      border-bottom: 2px var(--border-color) solid;
       text-align: center;
       font-size: var(--base-2);
       p {
@@ -25,7 +25,7 @@
       margin: 0 -8px 0;
       p {
         color: var(--main-text-color);
-        border-bottom: 2px var(--main-text-color) solid;
+        border-bottom: 2px var(--border-color) solid;
         font-size: var(--base-2);
         padding: var(--base);
         span {
