@@ -1,16 +1,17 @@
 "use client";
 
-import { getMonth } from "@/utils/getMonthDays";
 import { Fragment } from "react";
+import calendarStore from "../../app/store/calendarStore";
 import DayView from "./DayView/DayView";
 import styles from "./MainCalendar.module.scss";
-const MainCalendar = () => {
-  const dateArray = getMonth();
+
+export default function MainCalendar() {
+  const { datesArray } = calendarStore();
 
   return (
     <div className={styles.container}>
       <div className={styles.calendar}>
-        {dateArray.map((row, rInd) =>
+        {datesArray.map((row, rInd) =>
           row.map((day, colInd) => (
             <Fragment key={colInd}>
               <DayView day={day} rInd={rInd} />
@@ -20,6 +21,4 @@ const MainCalendar = () => {
       </div>
     </div>
   );
-};
-
-export default MainCalendar;
+}
