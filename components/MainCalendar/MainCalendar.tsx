@@ -1,19 +1,20 @@
 "use client";
 
+import { getMonth } from "@/utils/getMonthDays";
+import { Fragment } from "react";
+import DayView from "./DayView/DayView";
 import styles from "./MainCalendar.module.scss";
 const MainCalendar = () => {
+  const dateArray = getMonth();
+
   return (
     <div className={styles.container}>
       <div className={styles.calendar}>
-        {[...Array(5)].map((e, ind) =>
-          [...Array(7)].map((e, i) => (
-            <div key={i} className={styles.day}>
-              {i}
-              <div key={i} className={styles.event}>
-                <p>event name</p>
-                <p>event name</p>
-              </div>
-            </div>
+        {dateArray.map((row, rInd) =>
+          row.map((day, colInd) => (
+            <Fragment key={colInd}>
+              <DayView day={day} rInd={rInd} />
+            </Fragment>
           ))
         )}
       </div>
