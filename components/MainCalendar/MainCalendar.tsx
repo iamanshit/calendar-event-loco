@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./MainCalendar.module.scss";
-
 const MainCalendar = () => {
   return (
     <div className={styles.container}>

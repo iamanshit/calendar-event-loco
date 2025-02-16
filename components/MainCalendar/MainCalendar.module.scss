@@ -9,7 +9,7 @@
     height: 100%;
     .day {
       border: 1px solid var(--main-text-color);
-      padding: 8px;
+      padding: var(--base);
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -26,6 +26,11 @@
           color: var(--main-text-color);
           background: var(--event-color);
           text-align: center;
+          border-radius: var(--base);
+          &:hover {
+            background: var(--main-text-color);
+            color: var(--event-color);
+          }
         }
       }
     }
