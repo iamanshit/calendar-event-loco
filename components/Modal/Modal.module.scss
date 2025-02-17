@@ -34,45 +34,10 @@
       outline: none;
     }
 
-    .error{
+    .error {
       color: var(--error-color);
       font-size: 12px;
       font-weight: 100;
-    }
-
-    .eventList {
-      margin-top: 15px;
-      max-height: 200px;
-      overflow-y: auto;
-
-      .eventItem {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px;
-        border-bottom: 1px solid #ddd;
-        font-size: 16px;
-        color: #555;
-
-        span {
-          flex: 1;
-          text-align: left;
-        }
-
-        button {
-          background: red;
-          color: white;
-          border: none;
-          padding: 5px 8px;
-          cursor: pointer;
-          font-size: 14px;
-          border-radius: 4px;
-
-          &:hover {
-            background: darkred;
-          }
-        }
-      }
     }
 
     .btnWrapperCtn {
@@ -104,7 +69,7 @@
 
         &.close {
           background: var(--primary-color);
-          color: white;
+          color: var(--main-text-color);
 
           &:hover {
             background: var(--border-color);

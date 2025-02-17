@@ -1,19 +1,29 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useCalendarStore from "../../app/store/calendarStore";
 import styles from "./Modal.module.scss";
 
 const EventModal = ({ onClose }) => {
-  const { userSelectedDate, addEvent, closeModal } = useCalendarStore();
+  const { userSelectedDate, addEvent, deleteEvent, closeModal, selectedEvent } =
+    useCalendarStore();
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const error = "Something missing from event details";
   const [showError, setShowError] = useState(false);
 
+  useEffect(() => {
+    if (selectedEvent) {
+      setTitle(selectedEvent.title);
+      setDesc(selectedEvent.description);
+    }
+  }, [selectedEvent]);
+
   const handleAddEvent = () => {
     if (title.trim() !== "" && desc.trim() !== "") {
       addEvent({
-        id: userSelectedDate.format("DDMMYYYY"),
+        id:
+          userSelectedDate.format("DDMMYYYY") +
+          (Math.random() + 1).toString(36).substring(7),
         date: userSelectedDate.format("DD/MM/YYYY"),
         title: title.trim(),
         description: desc.trim(),
@@ -25,14 +35,37 @@ const EventModal = ({ onClose }) => {
     setShowError(true);
   };
 
-  // const handleDelete = (id) => {
-  //   deleteEvent(id);
-  // };
+  const handleUpdateEvent = () => {
+    if (title.trim() !== "" && desc.trim() !== "") {
+      addEvent({
+        id: selectedEvent.id,
+        date: selectedEvent.date,
+        title: title.trim(),
+        description: desc.trim(),
+      });
+      setShowError(false);
+      closeModal();
+      return;
+    }
+    setShowError(true);
+  };
+
+  const handleDeleteEvent = (id) => {
+    deleteEvent(id);
+    setShowError(false);
+    closeModal();
+    setTitle("");
+    setDesc("");
+  };
 
   return (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
-        <h2>Add Event for {userSelectedDate.format("DD/MM/YYYY")}</h2>
+        <h2>
+          {selectedEvent
+            ? `Event for ${selectedEvent?.date}`
+            : `Add Event for ${userSelectedDate.format("DD/MM/YYYY")}`}
+        </h2>
         <input
           type="text"
           placeholder="Event Title"
@@ -51,21 +84,21 @@ const EventModal = ({ onClose }) => {
           </div>
         )}
         <div className={styles.btnWrapperCtn}>
-          <button onClick={handleAddEvent}>Add Event</button>
-          <button className={styles.close} onClick={onClose}>
-            Close
+          <button onClick={selectedEvent ? handleUpdateEvent : handleAddEvent}>
+            {" "}
+            {selectedEvent ? "Update" : "Add Event"}
+          </button>
+          <button
+            className={styles.close}
+            onClick={
+              selectedEvent
+                ? () => handleDeleteEvent(selectedEvent.id)
+                : onClose
+            }
+          >
+            {selectedEvent ? "Delete" : "Close"}
           </button>
         </div>
-        {/* <div className="event-list">
-          {events
-            .filter((e) => e.date === date)
-            .map((event) => (
-              <div key={event.id} className="event-item">
-                <span>{event.title}</span>
-                <button>X</button>
-              </div>
-            ))}
-        </div> */}
       </div>
     </div>
   );
