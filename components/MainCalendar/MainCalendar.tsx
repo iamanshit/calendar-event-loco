@@ -2,23 +2,35 @@
 
 import { Fragment } from "react";
 import calendarStore from "../../app/store/calendarStore";
+import Modal from "../Modal/Modal";
 import DayView from "./DayView/DayView";
 import styles from "./MainCalendar.module.scss";
 
 export default function MainCalendar() {
-  const { datesArray } = calendarStore();
+  const { datesArray, isModalOpen, openModal, closeModal, setDate } =
+    calendarStore();
 
+  const handleClick = (e, day) => {
+    e.preventDefault();
+    openModal();
+    setDate(day);
+  };
   return (
-    <div className={styles.container}>
-      <div className={styles.calendar}>
+    <>
+      <div className={styles.container}>
         {datesArray.map((row, rInd) =>
           row.map((day, colInd) => (
             <Fragment key={colInd}>
-              <DayView day={day} rInd={rInd} />
+              <DayView
+                day={day}
+                rInd={rInd}
+                handleClick={(e) => handleClick(e, day)}
+              />
             </Fragment>
           ))
         )}
       </div>
-    </div>
+      {isModalOpen && <Modal onClose={closeModal} />}
+    </>
   );
 }
