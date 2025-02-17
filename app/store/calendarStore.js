@@ -22,18 +22,22 @@ const calendarStore = create(
         userSelectedDate: null,
         setDate: (date) => set({ userSelectedDate: date }),
 
+        selectedEvent: null,
+        fetchSelectedEvent: (event) =>
+          set({ isModalOpen: true, selectedEvent: event }),
+
         events: [],
         addEvent: (event) =>
           set((state) => ({
-            events: [...state.events, event],
-          })),
-        updateEvent: (event) =>
-          set((state) => ({
-            events: [...state.events, (state.events[event.id] = event)],
+            events: [
+              ...state.events.filter((evnt) => evnt.id !== event.id),
+              event,
+            ],
           })),
         deleteEvent: (id) =>
           set((state) => ({
             events: state.events.filter((event) => event.id !== id),
+            selectedEvent: null,
           })),
       }),
       { name: "calendar_view", skipHydration: true }
