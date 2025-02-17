@@ -10,8 +10,7 @@ export default function MainCalendar() {
   const { datesArray, isModalOpen, openModal, closeModal, setDate } =
     calendarStore();
 
-  const handleClick = (e, day) => {
-    e.preventDefault();
+  const handleClick = (day) => {
     openModal();
     setDate(day);
   };
@@ -24,7 +23,11 @@ export default function MainCalendar() {
               <DayView
                 day={day}
                 rInd={rInd}
-                handleClick={(e) => handleClick(e, day)}
+                handleClick={(e) => {
+                  e.preventDefault();
+                  handleClick(day);
+                }}
+                openModal={openModal}
               />
             </Fragment>
           ))

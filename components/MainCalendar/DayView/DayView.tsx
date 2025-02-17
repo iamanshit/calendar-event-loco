@@ -3,7 +3,11 @@ import calendarStore from "../../../app/store/calendarStore";
 import styles from "./DayView.module.scss";
 
 export default function DayView({ day, rInd, handleClick }) {
-  const { events } = calendarStore();
+  const { events, fetchSelectedEvent } = calendarStore();
+
+  const handleOnEventClick = (event) => {
+    fetchSelectedEvent(event);
+  };
   return (
     <li className={styles.day} onClick={handleClick}>
       {rInd === 0 && <h4>{day.format("ddd").toUpperCase()}</h4>}
@@ -22,7 +26,17 @@ export default function DayView({ day, rInd, handleClick }) {
             <div className={styles.event}>
               {events.map((event, id) => {
                 if (event.date === day.format("DD/MM/YYYY")) {
-                  return <p key={id}>{event.title.slice(0, 10)}</p>;
+                  return (
+                    <p
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOnEventClick(event);
+                      }}
+                      key={id}
+                    >
+                      {event.title.slice(0, 10)}
+                    </p>
+                  );
                 }
               })}
             </div>
