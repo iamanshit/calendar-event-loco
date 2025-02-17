@@ -14,18 +14,23 @@ const calendarStore = create(
         setMonth: (index) => {
           set({ datesArray: getMonth(index), currMonth: index });
         },
-        events: [],
 
+        isModalOpen: false,
+        openModal: () => set({ isModalOpen: true }),
+        closeModal: () => set({ isModalOpen: false }),
+
+        userSelectedDate: null,
+        setDate: (date) => set({ userSelectedDate: date }),
+
+        events: [],
         addEvent: (event) =>
           set((state) => ({
             events: [...state.events, event],
           })),
-
         updateEvent: (event) =>
           set((state) => ({
             events: [...state.events, (state.events[event.id] = event)],
           })),
-
         deleteEvent: (id) =>
           set((state) => ({
             events: state.events.filter((event) => event.id !== id),
