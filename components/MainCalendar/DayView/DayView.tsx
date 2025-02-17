@@ -1,9 +1,8 @@
 import * as dayjs from "dayjs";
 import styles from "./DayView.module.scss";
-
-export default function DayView({ day, rInd }) {
+export default function DayView({ day, rInd, handleClick }) {
   return (
-    <div className={styles.day}>
+    <li className={styles.day} onClick={handleClick}>
       {rInd === 0 && <h4>{day.format("ddd").toUpperCase()}</h4>}
       <p
         className={
@@ -18,6 +17,6 @@ export default function DayView({ day, rInd }) {
         <p>event name</p>
         <p>event name</p>
       </div>
-    </div>
+    </li>
   );
 }
