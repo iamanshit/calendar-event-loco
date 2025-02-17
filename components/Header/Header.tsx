@@ -1,6 +1,6 @@
 "use client";
 
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import { FcCalendar } from "react-icons/fc";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import calendarStore from "../../app/store/calendarStore";

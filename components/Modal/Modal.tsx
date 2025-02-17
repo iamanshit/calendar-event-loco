@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useCalendarStore from "../../app/store/calendarStore";
 import styles from "./Modal.module.scss";
 
-const EventModal = ({ onClose }) => {
+export default function EventModal({ onClose }: { onClose: () => void }) {
   const { userSelectedDate, addEvent, deleteEvent, closeModal, selectedEvent } =
     useCalendarStore();
   const [title, setTitle] = useState("");
@@ -50,7 +50,7 @@ const EventModal = ({ onClose }) => {
     setShowError(true);
   };
 
-  const handleDeleteEvent = (id) => {
+  const handleDeleteEvent = (id: number) => {
     deleteEvent(id);
     setShowError(false);
     closeModal();
@@ -102,6 +102,4 @@ const EventModal = ({ onClose }) => {
       </div>
     </div>
   );
-};
-
-export default EventModal;
+}

@@ -1,16 +1,26 @@
-import * as dayjs from "dayjs";
+"use client"; // Ensure Zustand store runs only on the client
+
+import dayjs from "dayjs";
 import calendarStore from "../../../app/store/calendarStore";
 import styles from "./DayView.module.scss";
 
-export default function DayView({ day, rInd, handleClick }) {
+export default function DayView({
+  day,
+  rInd,
+  handleClick,
+}: {
+  day: any;
+  rInd: number;
+  handleClick: (e: any) => void;
+}) {
   const { events, fetchSelectedEvent } = calendarStore();
 
-  const handleOnEventClick = (event) => {
+  const handleOnEventClick = (event: any) => {
     fetchSelectedEvent(event);
   };
   return (
     <li className={styles.day} onClick={handleClick}>
-      {rInd === 0 && <h4>{day.format("ddd").toUpperCase()}</h4>}
+      {rInd === 0 && <h4>{day?.format("ddd").toUpperCase()}</h4>}
       <div className={styles.innerWrapper}>
         <p
           className={
@@ -24,7 +34,7 @@ export default function DayView({ day, rInd, handleClick }) {
         <>
           {events && events.length > 0 && (
             <div className={styles.event}>
-              {events.map((event, id) => {
+              {events.map((event: any, id: number) => {
                 if (event.date === day.format("DD/MM/YYYY")) {
                   return (
                     <p

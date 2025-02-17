@@ -10,15 +10,15 @@ export default function MainCalendar() {
   const { datesArray, isModalOpen, openModal, closeModal, setDate } =
     calendarStore();
 
-  const handleClick = (day) => {
+  const handleClick = (day: any) => {
     openModal();
     setDate(day);
   };
   return (
     <>
       <div className={styles.container}>
-        {datesArray.map((row, rInd) =>
-          row.map((day, colInd) => (
+        {datesArray.map((row: any, rInd: number) =>
+          row.map((day: any, colInd: number) => (
             <Fragment key={colInd}>
               <DayView
                 day={day}
@@ -27,7 +27,6 @@ export default function MainCalendar() {
                   e.preventDefault();
                   handleClick(day);
                 }}
-                openModal={openModal}
               />
             </Fragment>
           ))
