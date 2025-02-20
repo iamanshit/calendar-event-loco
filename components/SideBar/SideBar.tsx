@@ -6,7 +6,7 @@ import calendarStore from "../../app/store/calendarStore";
 import styles from "./SideBar.module.scss";
 
 export default function SideBar() {
-  const { events } = calendarStore();
+  const { events }: any = calendarStore();
   const todayFirstTask = useMemo(() => {
     return events.filter(
       (event: any) => event?.date === dayjs().format("DD/MM/YYYY")

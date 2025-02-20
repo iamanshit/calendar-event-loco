@@ -6,7 +6,7 @@ import calendarStore from "../../app/store/calendarStore";
 import styles from "./MainCalendar.module.scss";
 
 export default function MainCalendar() {
-  const { datesArray, isModalOpen, openModal, closeModal, setDate } =
+  const { datesArray, isModalOpen, openModal, closeModal, setDate }: any =
     calendarStore();
 
   const handleClick = (day: any) => {

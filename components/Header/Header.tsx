@@ -8,7 +8,7 @@ import calendarStore from "../../app/store/calendarStore";
 import styles from "./Header.module.scss";
 
 export default function Header() {
-  const { setMonth, currMonth } = calendarStore();
+  const { setMonth, currMonth }: any = calendarStore();
 
   const getChangedMonth = useCallback(
     (offset: number) => {

@@ -13,7 +13,7 @@ export default function DayView({
   rInd: number;
   handleClick: (e: any) => void;
 }) {
-  const { events, fetchSelectedEvent } = calendarStore();
+  const { events, fetchSelectedEvent }: any = calendarStore();
   const dayObject = dayjs(day);
 
   const handleOnEventClick = (event: any) => {

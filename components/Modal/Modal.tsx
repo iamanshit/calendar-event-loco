@@ -14,7 +14,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
     deleteEvent,
     closeModal,
     selectedEvent,
-  } = calendarStore();
+  }: any = calendarStore();
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [showError, setShowError] = useState(false);
@@ -28,7 +28,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
     }
   }, [selectedEvent]);
 
-  const checkError = (title, desc) => {
+  const checkError = (title: string, desc: string) => {
     if (!title.trim()) setErrorMessage("Title is required.");
     if (!desc.trim()) setErrorMessage("Description is required.");
     if (!title.trim() && !desc.trim())
@@ -55,7 +55,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
       return;
     }
     checkError(title, desc);
-  }, [title, desc, addEvent, closeModal]);
+  }, [title, desc, addEvent, userSelectedDate, closeModal]);
 
   const handleUpdateEvent = useCallback(() => {
     if (title.trim() && desc.trim()) {
@@ -71,7 +71,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
       return;
     }
     checkError(title, desc);
-  }, [title, desc, addEvent, selectedEvent, closeModal]);
+  }, [title, desc, updateEvent, selectedEvent, closeModal]);
 
   const handleDeleteEvent = useCallback(
     (id: number) => {

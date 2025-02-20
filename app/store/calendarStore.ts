@@ -11,7 +11,7 @@ const calendarStore = create(
       (set) => ({
         datesArray: getDaysOfCurrentMonth(),
         currMonth: dayjs().month(),
-        setMonth: (index) => {
+        setMonth: (index: any) => {
           set({ datesArray: getDaysOfCurrentMonth(index), currMonth: index });
         },
 
@@ -20,28 +20,28 @@ const calendarStore = create(
         closeModal: () => set({ isModalOpen: false }),
 
         userSelectedDate: null,
-        setDate: (date) => set({ userSelectedDate: date }),
+        setDate: (date: any) => set({ userSelectedDate: date }),
 
         selectedEvent: null,
-        fetchSelectedEvent: (event) =>
+        fetchSelectedEvent: (event: any) =>
           set({ isModalOpen: true, selectedEvent: event }),
 
         events: [],
 
-        addEvent: (event) =>
-          set((state) => ({ events: state.events.concat(event) })),
+        addEvent: (event: any) =>
+          set((state: any) => ({ events: state.events.concat(event) })),
 
-        updateEvent: (updatedEvent) =>
-          set((state) => ({
+        updateEvent: (updatedEvent: any) =>
+          set((state: any) => ({
             events: state.events.map((event) =>
               event.id === updatedEvent.id ? updatedEvent : event
             ),
             selectedEvent: null,
           })),
 
-        deleteEvent: (id) =>
-          set((state) => ({
-            events: state.events.filter((event) => event.id !== id),
+        deleteEvent: (id: number) =>
+          set((state: any) => ({
+            events: state.events.filter((event: any) => event.id !== id),
             selectedEvent: null,
           })),
       }),
