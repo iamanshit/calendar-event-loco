@@ -1,19 +1,17 @@
+@use "../mixins" as *;
+
 .mainContainer {
   height: 100vh;
   width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Arial, Helvetica, sans-serif;
+  @include flex($align: center, $justify: center);
   .appShell {
     height: 100%;
     width: 100%;
   }
   .wrapper {
-    display: flex;
-    flex-direction: row;
+    @include flex($direction: row);
     width: 100%;
     height: calc(100% - 100px);
-    background-color: var(--main-bg-color);
+    background-color: var(--primary-color);
   }
 }
