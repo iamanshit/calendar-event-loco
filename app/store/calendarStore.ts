@@ -33,7 +33,7 @@ const calendarStore = create(
 
         updateEvent: (updatedEvent: any) =>
           set((state: any) => ({
-            events: state.events.map((event) =>
+            events: state.events.map((event: any) =>
               event.id === updatedEvent.id ? updatedEvent : event
             ),
             selectedEvent: null,
