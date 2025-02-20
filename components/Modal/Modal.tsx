@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useCalendarStore from "../../app/store/calendarStore";
 import styles from "./Modal.module.scss";
 
@@ -8,18 +8,21 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
     useCalendarStore();
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const error = "Something missing from event details";
   const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (selectedEvent) {
+    if (
+      selectedEvent &&
+      (selectedEvent.title !== title || selectedEvent.description !== desc)
+    ) {
       setTitle(selectedEvent.title);
       setDesc(selectedEvent.description);
     }
-  }, [selectedEvent]);
+  }, [selectedEvent, title, desc]);
 
-  const handleAddEvent = () => {
-    if (title.trim() !== "" && desc.trim() !== "") {
+  const handleAddEvent = useCallback(() => {
+    if (title.trim() && desc.trim()) {
       addEvent({
         id:
           userSelectedDate.format("DDMMYYYY") +
@@ -32,11 +35,13 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
       closeModal();
       return;
     }
+    if (!title.trim()) setErrorMessage("Title is required.");
+    if (!desc.trim()) setErrorMessage("Description is required.");
     setShowError(true);
-  };
+  }, [title, desc, userSelectedDate, addEvent, closeModal]);
 
   const handleUpdateEvent = () => {
-    if (title.trim() !== "" && desc.trim() !== "") {
+    if (title.trim() && desc.trim()) {
       addEvent({
         id: selectedEvent.id,
         date: selectedEvent.date,
@@ -47,6 +52,8 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
       closeModal();
       return;
     }
+    if (!title.trim()) setErrorMessage("Title is required.");
+    if (!desc.trim()) setErrorMessage("Description is required.");
     setShowError(true);
   };
 

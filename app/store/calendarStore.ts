@@ -28,12 +28,7 @@ const calendarStore = create(
 
         events: [],
         addEvent: (event) =>
-          set((state) => ({
-            events: [
-              ...state.events.filter((evnt) => evnt.id !== event.id),
-              event,
-            ],
-          })),
+          set((state) => ({ events: state.events.concat(event) })),
         deleteEvent: (id) =>
           set((state) => ({
             events: state.events.filter((event) => event.id !== id),

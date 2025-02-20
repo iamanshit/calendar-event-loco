@@ -1,15 +1,17 @@
 "use client"; // Ensure Zustand store runs only on the client
 
 import dayjs from "dayjs";
+import { useMemo } from "react";
 import useCalendarStore from "../../app/store/calendarStore";
 import styles from "./SideBar.module.scss";
 
 export default function SideBar() {
   const { events } = useCalendarStore();
-  const todayFirstTask = events.filter((event: any) => {
-    return event.date === dayjs(new Date()).format("DD/MM/YYYY");
-  });
-  console.log(todayFirstTask);
+  const todayFirstTask = useMemo(() => {
+    return events.filter(
+      (event: any) => event.date === dayjs().format("DD/MM/YYYY")
+    );
+  }, [events]);
   return (
     <div className={styles.mainContainer}>
       <div className={styles.eventCtn}>
