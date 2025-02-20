@@ -3,14 +3,16 @@
 .mainContainer {
   width: 256px;
   .eventCtn {
-    height: 60%;
+    min-height: 300px;
+    max-height: 600px;
     border: 2px var(--border-color) solid;
     margin: var(--base-2);
     padding: var(--base);
     border-radius: var(--base-2);
     background-color: var(--secondary-color);
     .heading {
-      margin: -var(--base) -var(--base) 0 -var(--base);
+      margin: calc(var(--base) * -1) calc(var(--base) * -1) 0
+        calc(var(--base) * -1);
       border-top-left-radius: var(--base-2);
       border-top-right-radius: var(--base-2);
       padding: var(--base) var(--base-2);
@@ -23,44 +25,36 @@
       }
     }
     .eventDetail {
-      padding: var(--base-2) 0 0px;
-      margin: 0 -var(--base) 0;
+      padding: var(--base) 0 0px;
+      margin: 0 calc(var(--base) * -1) 0;
       p {
-        color: var(--primary-text-color);
-        border-bottom: 2px var(--border-color) solid;
         font-size: var(--font-base-2);
         padding: var(--base);
         word-wrap: break-word;
         white-space: pre-wrap;
         word-break: break-word;
-        span {
-          color: var(--tertiary-text-color);
-        }
+      }
+      .head {
+        color: var(--tertiary-text-color);
+      }
+      .info {
+        color: var(--primary-text-color);
+        max-height: 150px;
+        overflow: auto;
+        scrollbar-width: thin;
+        margin-bottom: var(--base);
       }
     }
-    .description {
-      margin: 0 -var(--base);
-      height: inherit;
-      overflow: auto;
-      p {
-        color: var(--primary-text-color);
-        font-size: var(--font-base-2);
-        padding: var(--base);
-        word-wrap: break-word;
-        white-space: pre-wrap;
-        word-break: break-word;
-        span {
-          color: var(--tertiary-text-color);
-        }
-      }
+    .border {
+      border-bottom: 2px var(--border-color) solid;
+      margin: 0 calc(var(--base) * -1) 0;
     }
   }
-
   .noEvent {
     font-size: var(--font-base-2);
     color: var(--primary-text-color);
     text-align: center;
     @include flex($align: center, $justify: center);
-    height: 100%;
+    height: 250px;
   }
 }

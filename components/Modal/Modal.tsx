@@ -1,6 +1,8 @@
 "use client"; // Ensure Zustand store runs only on the client
 
+import dayjs from "dayjs";
 import { useCallback, useEffect, useState } from "react";
+import { IoCloseSharp } from "react-icons/io5";
 import calendarStore from "../../app/store/calendarStore";
 import styles from "./Modal.module.scss";
 
@@ -17,6 +19,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
   const [desc, setDesc] = useState("");
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     if (selectedEvent) {
@@ -33,13 +36,17 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
     setShowError(true);
   };
 
+  const enableUpdate = () => {
+    setIsUpdate(true);
+  };
+
   const handleAddEvent = useCallback(() => {
     if (title.trim() && desc.trim()) {
       addEvent({
         id:
-          userSelectedDate.format("DDMMYYYY") +
+          dayjs(userSelectedDate).format("DDMMYYYY") +
           (Math.random() + 1).toString(36).substring(7),
-        date: userSelectedDate.format("DD/MM/YYYY"),
+        date: dayjs(userSelectedDate).format("DD/MM/YYYY"),
         title: title.trim(),
         description: desc.trim(),
       });
@@ -48,7 +55,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
       return;
     }
     checkError(title, desc);
-  }, [title, desc, userSelectedDate, addEvent, closeModal]);
+  }, [title, desc, addEvent, closeModal]);
 
   const handleUpdateEvent = useCallback(() => {
     if (title.trim() && desc.trim()) {
@@ -59,6 +66,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
         description: desc.trim(),
       });
       setShowError(false);
+      setIsUpdate(false);
       closeModal();
       return;
     }
@@ -79,29 +87,59 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
   return (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
+        <div className={styles.closeIcon} onClick={onClose}>
+          <IoCloseSharp size={30} />
+        </div>
         <h2>
           {selectedEvent
             ? `Event for ${selectedEvent?.date}`
-            : `Add Event for ${userSelectedDate?.format("DD/MM/YYYY")}`}
+            : `Add Event for ${dayjs(userSelectedDate)?.format("DD/MM/YYYY")}`}
         </h2>
-        <input
-          type="text"
-          placeholder="Event Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Event Description"
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-        />
+        {(!selectedEvent || (selectedEvent && isUpdate)) && (
+          <>
+            <input
+              type="text"
+              placeholder="Event Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Event Description"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+            />
+          </>
+        )}
+        {selectedEvent && !isUpdate && (
+          <>
+            <div>
+              <div className={styles.eventDetail}>
+                <p className={styles.head}>Title</p>
+                <div className={styles.info}>
+                  <p>{title}</p>
+                </div>
+              </div>
+              <div className={styles.eventDetail}>
+                <p className={styles.head}>Description</p>
+                <div className={styles.info}>
+                  <p>{desc}</p>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
         {showError && <p className={styles.error}>{errorMessage}</p>}
         <div className={styles.btnWrapperCtn}>
-          <button onClick={selectedEvent ? handleUpdateEvent : handleAddEvent}>
-            {" "}
-            {selectedEvent ? "Update" : "Add Event"}
-          </button>
+          {selectedEvent ? (
+            isUpdate ? (
+              <button onClick={handleUpdateEvent}>Update</button>
+            ) : (
+              <button onClick={() => setIsUpdate(true)}>Edit</button>
+            )
+          ) : (
+            <button onClick={handleAddEvent}>Add Event</button>
+          )}
           <button
             className={styles.close}
             onClick={

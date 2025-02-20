@@ -23,7 +23,11 @@
       font-size: var(--font-base-2) + var(--font-vs);
       color: var(--primary-text-color);
     }
-
+    .closeIcon {
+      display: flex;
+      flex-direction: row-reverse;
+      color: var(--primary-text-color);
+    }
     input {
       width: 100%;
       padding: 10px;
@@ -40,6 +44,28 @@
       font-weight: 100;
     }
 
+    .eventDetail {
+      padding: var(--base) 0 0px;
+      margin: 0 calc(var(--base) * -1) 0;
+      p {
+        font-size: var(--font-base-2);
+        padding: var(--base);
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .head {
+        color: var(--tertiary-text-color);
+      }
+      .info {
+        color: var(--primary-text-color);
+        max-height: 150px;
+        overflow: auto;
+        scrollbar-width: thin;
+        margin-bottom: var(--base);
+        border: 1px var(--border-color) solid;
+      }
+    }
     .btnWrapperCtn {
       @include flex($direction: row, $align: center, $justify: flex-end);
       button {

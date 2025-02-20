@@ -14,6 +14,7 @@ export default function DayView({
   handleClick: (e: any) => void;
 }) {
   const { events, fetchSelectedEvent } = calendarStore();
+  const dayObject = dayjs(day);
 
   const handleOnEventClick = (event: any) => {
     fetchSelectedEvent(event);
@@ -21,26 +22,28 @@ export default function DayView({
 
   return (
     <li
-      key={day.format("DD-MM-YYYY")}
+      key={dayObject.format("DD-MM-YYYY")}
       className={`${styles.day} ${styles.fadeIn}`}
       onClick={handleClick}
     >
-      {rInd === 0 && <h4>{day?.format("ddd").toUpperCase()}</h4>}
+      {rInd === 0 && <h4>{dayObject.format("ddd").toUpperCase()}</h4>}
       <div className={styles.innerWrapper}>
         <p
           className={
-            day.format("DD-MM-YY") === dayjs().format("DD-MM-YY")
+            dayObject.format("DD-MM-YY") === dayjs().format("DD-MM-YY")
               ? styles.highlight
               : ""
           }
         >
-          {day.date() === 1 ? day.format("MMM D") : day.format("D")}
+          {dayObject.date() === 1
+            ? dayObject.format("MMM D")
+            : dayObject.format("D")}
         </p>
         <>
           {events && events?.length > 0 && (
             <div className={styles.event}>
               {events.map((event: any, id: number) => {
-                if (event?.date === day.format("DD/MM/YYYY")) {
+                if (event?.date === dayObject.format("DD/MM/YYYY")) {
                   return (
                     <p
                       onClick={(e) => {

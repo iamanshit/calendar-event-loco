@@ -45,7 +45,7 @@ const calendarStore = create(
             selectedEvent: null,
           })),
       }),
-      { name: "calendar-storage", skipHydration: true }
+      { name: "calendar-storage" }
     )
   )
 );

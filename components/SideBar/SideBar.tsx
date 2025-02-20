@@ -1,7 +1,7 @@
 "use client"; // Ensure Zustand store runs only on the client
 
 import dayjs from "dayjs";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import calendarStore from "../../app/store/calendarStore";
 import styles from "./SideBar.module.scss";
 
@@ -12,6 +12,12 @@ export default function SideBar() {
       (event: any) => event?.date === dayjs().format("DD/MM/YYYY")
     );
   }, [events]);
+
+  const taskDetailsObject = [
+    { head: "Date:", value: todayFirstTask[0]?.date },
+    { head: "Title:", value: todayFirstTask[0]?.title },
+    { head: "Description:", value: todayFirstTask[0]?.description },
+  ];
   return (
     <div className={styles.mainContainer}>
       <div className={styles.eventCtn}>
@@ -19,21 +25,19 @@ export default function SideBar() {
           <p>Event Quick View</p>
         </div>
         {todayFirstTask && todayFirstTask[0] ? (
-          <>
-            <div className={styles.eventDetail}>
-              <p className={styles.title}>
-                <span>Title:</span> {todayFirstTask[0]?.title}
-              </p>
-              <p className={styles.date}>
-                <span>Date:</span> {todayFirstTask[0]?.date}
-              </p>
-            </div>
-            <div className={styles.description}>
-              <p>
-                <span>Description:</span> {todayFirstTask[0]?.description}
-              </p>
-            </div>
-          </>
+          taskDetailsObject.map((item, index) => {
+            return (
+              <Fragment key={index}>
+                <div className={styles.border}></div>
+                <div className={styles.eventDetail}>
+                  <p className={styles.head}>{item.head}</p>
+                  <div className={styles.info}>
+                    <p>{item.value}</p>
+                  </div>
+                </div>
+              </Fragment>
+            );
+          })
         ) : (
           <div className={styles.noEvent}>
             <p>No events scheduled for today.</p>
