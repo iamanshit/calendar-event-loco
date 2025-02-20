@@ -17,16 +17,16 @@
         padding: 8px;
         .appName {
           color: var(--primary-text-color);
-          font-size: var(--base-3);
+          font-size: var(--font-base-3);
           font-weight: bolder;
           margin-left: var(--base);
         }
         .nav {
           @include flex($align: center);
-          margin-left: 24px;
+          margin-left: var(--base-3);
           .button {
             padding: var(--base) var(--base-3);
-            font-size: var(--base + 4px);
+            font-size: var(--font-base + --font-vs);
             font-weight: bolder;
             margin: var(--base) 2px;
             transition-duration: 0.4s;
@@ -55,10 +55,10 @@
     }
     .currDate {
       @include flex($align: center);
-      margin: calc(var(--base-2) + 4px);
+      margin: calc(var(--base-2) + var(--vs));
 
       p {
-        font-size: var(--base-3);
+        font-size: var(--font-base-3);
         font-weight: bolder;
         color: var(--highlight-text-color);
       }

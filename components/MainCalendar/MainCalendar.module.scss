@@ -5,19 +5,19 @@
   border: 2px solid var(--border-color);
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  border-radius: 16px;
+  border-radius: var(--base-2);
   li {
     &:nth-child(1) {
-      border-top-left-radius: 12px;
+      border-top-left-radius: var(--base) + var(--vs);
     }
     &:nth-child(7) {
-      border-top-right-radius: 12px;
+      border-top-right-radius: var(--base) + var(--vs);
     }
     &:nth-child(29) {
-      border-bottom-left-radius: 12px;
+      border-bottom-left-radius: var(--base) + var(--vs);
     }
     &:nth-child(35) {
-      border-bottom-right-radius: 12px;
+      border-bottom-right-radius: var(--base) + var(--vs);
     }
   }
 }

@@ -38,7 +38,9 @@ export default function Header() {
         </div>
         <div className={styles.currDate}>
           <p>
-            {dayjs(new Date(dayjs().year(), currMonth)).format("MMMM YYYY")}
+            {dayjs(new Date(dayjs().year(), currMonth, dayjs().date())).format(
+              "DD MMMM YYYY"
+            )}
           </p>
         </div>
       </div>

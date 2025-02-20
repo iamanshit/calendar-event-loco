@@ -9,7 +9,7 @@
     @include flex($direction: column, $align: center, $justify: center);
     .mainHeading {
       color: var(--primary-text-color);
-      font-size: var(--base-6);
+      font-size: var(--font-base-6);
       span {
         display: inline-block;
         vertical-align: sub;
@@ -20,7 +20,7 @@
       text-align: center;
       text-decoration: none;
       display: inline-block;
-      font-size: var(--base-2);
+      font-size: var(--font-base-2);
       font-weight: bolder;
       margin: var(--base) 2px;
       transition-duration: 0.4s;

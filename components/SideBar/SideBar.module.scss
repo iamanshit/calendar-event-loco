@@ -10,13 +10,13 @@
     border-radius: var(--base-2);
     background-color: var(--secondary-color);
     .heading {
-      margin: -8px -8px 0 -8px;
+      margin: -var(--base) -var(--base) 0 -var(--base);
       border-top-left-radius: var(--base-2);
       border-top-right-radius: var(--base-2);
       padding: var(--base) var(--base-2);
       border-bottom: 2px var(--border-color) solid;
       text-align: center;
-      font-size: var(--base-2);
+      font-size: var(--font-base-2);
       p {
         color: var(--secondary-text-color);
         font-weight: bolder;
@@ -24,11 +24,11 @@
     }
     .eventDetail {
       padding: var(--base-2) 0 0px;
-      margin: 0 -8px 0;
+      margin: 0 -var(--base) 0;
       p {
         color: var(--primary-text-color);
         border-bottom: 2px var(--border-color) solid;
-        font-size: var(--base-2);
+        font-size: var(--font-base-2);
         padding: var(--base);
         word-wrap: break-word;
         white-space: pre-wrap;
@@ -39,12 +39,12 @@
       }
     }
     .description {
-      margin: 0 -8px;
+      margin: 0 -var(--base);
       height: inherit;
       overflow: auto;
       p {
         color: var(--primary-text-color);
-        font-size: var(--base-2);
+        font-size: var(--font-base-2);
         padding: var(--base);
         word-wrap: break-word;
         white-space: pre-wrap;
@@ -57,7 +57,7 @@
   }
 
   .noEvent {
-    font-size: 16px;
+    font-size: var(--font-base-2);
     color: var(--primary-text-color);
     text-align: center;
     @include flex($align: center, $justify: center);

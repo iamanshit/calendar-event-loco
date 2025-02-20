@@ -11,17 +11,17 @@
     width: 100%;
     .highlight {
       background-color: var(--highlight-text-color);
-      padding: 4px;
+      padding: var(--vs);
       border-radius: var(--base-2);
     }
     .event {
-      max-height: 80px;
+      max-height: calc(var(--base-5) * 2);
       width: 100%;
       overflow: auto;
       p {
         padding: 2px;
-        margin-top: 4px;
-        font-size: 12px;
+        margin-top: var(--vs);
+        font-size: var(--font-base) + var(--vs);
         color: var(--primary-text-color);
         background: var(--event-color);
         text-align: center;

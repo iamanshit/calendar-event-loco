@@ -11,16 +11,16 @@
   z-index: 1000;
   .modalContent {
     background: var(--secondary-color);
-    padding: 20px;
+    padding: calc(var(--base-2) + var(--vs));
     width: 90%;
-    max-width: 400px;
+    max-width: calc(var(--base-5) * 10);
     border-radius: var(--base);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px var(--vs) 10px rgba(0, 0, 0, 0.3);
     text-align: center;
     animation: fadeIn 0.3s ease-in-out;
     h2 {
       margin-bottom: 15px;
-      font-size: 20px;
+      font-size: var(--font-base-2) + var(--font-vs);
       color: var(--primary-text-color);
     }
 
@@ -30,13 +30,13 @@
       margin-bottom: var(--base-2);
       border: 1px solid var(--primary-text-color);
       border-radius: 5px;
-      font-size: var(--base-2);
+      font-size: var(--font-base-2);
       outline: none;
     }
 
     .error {
       color: var(--error-color);
-      font-size: 12px;
+      font-size: var(--font-base) + var(--font-vs);
       font-weight: 100;
     }
 
@@ -46,7 +46,7 @@
         width: 30%;
         padding: 10px;
         margin-top: 10px;
-        font-size: var(--base-2);
+        font-size: var(--font-base-2);
         border: none;
         cursor: pointer;
         border-radius: var(--base);
