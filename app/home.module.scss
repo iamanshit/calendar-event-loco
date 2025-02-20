@@ -37,3 +37,22 @@
     }
   }
 }
+
+
+// for phones
+@media (max-width: 576px) {
+  .mainContainer {
+    .wrapper {
+      .mainHeading {
+        font-size: var(--font-base-2);
+      }
+      .button {
+        padding: var(--base) var(--base-3);
+        font-size: var(--font-base);
+        margin: var(--base) 2px;
+        border-radius: var(--base-6);
+        width: calc(var(--base-2) * 10);
+      }
+    }
+  }
+}

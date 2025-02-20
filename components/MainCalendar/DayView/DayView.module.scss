@@ -4,6 +4,7 @@
   border: 1px solid var(--border-color);
   padding: var(--base);
   cursor: pointer;
+  min-height: 150px;
   @include flex($direction: column, $align: center);
   color: var(--primary-text-color);
   .innerWrapper {
@@ -48,5 +49,28 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// for phones
+@media (max-width: 576px) {
+  .day {
+    padding: var(--vs);
+    .innerWrapper {
+      width: 100%;
+      .highlight {
+        padding: var(--vs);
+        border-radius: var(--base-2);
+      }
+      .event {
+        max-height: 150px;
+        p {
+          padding: 2px;
+          margin-top: var(--vs);
+          font-size: var(--font-base);
+          border-radius: var(--base);
+        }
+      }
+    }
   }
 }

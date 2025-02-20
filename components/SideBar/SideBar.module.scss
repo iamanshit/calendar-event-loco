@@ -58,3 +58,10 @@
     height: 250px;
   }
 }
+
+// for phones
+@media (max-width: 576px) {
+  .mainContainer{
+    display: none;
+  }
+}

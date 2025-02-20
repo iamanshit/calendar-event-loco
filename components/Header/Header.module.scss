@@ -68,3 +68,41 @@
     }
   }
 }
+
+// for phones
+@media (max-width: 576px) {
+  .mainContainer {
+    .mainHead {
+      .left {
+        margin-left: var(--base);
+        .appNameBadg {
+          padding: var(--base);
+          .appName {
+            font-size: calc(var(--font-base) + var(--font-vs));
+            margin-left: var(--base);
+          }
+          .nav {
+            margin-left: var(--base);
+            .button {
+              padding: var(--base) var(--base-2);
+              font-size: var(--font-base);
+              margin: var(--vs) 2px;
+              border-radius: var(--base-6);
+            }
+            svg {
+              border-radius: var(--base-3);
+              margin-left: var(--base);
+              height: var(--base-3);
+            }
+          }
+        }
+      }
+      .currDate {
+        margin: calc(var(--base) + var(--vs));
+        p {
+          font-size: calc(var(--font-base) + var(--font-vs));
+        }
+      }
+    }
+  }
+}
