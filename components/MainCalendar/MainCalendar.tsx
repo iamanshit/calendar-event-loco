@@ -1,9 +1,8 @@
-"use client";
+"use client"; // Ensure Zustand store runs only on the client
 
-import { Fragment } from "react";
+import DayView from "@/components/MainCalendar/DayView/DayView";
+import Modal from "@/components/Modal/Modal";
 import calendarStore from "../../app/store/calendarStore";
-import Modal from "../Modal/Modal";
-import DayView from "./DayView/DayView";
 import styles from "./MainCalendar.module.scss";
 
 export default function MainCalendar() {
@@ -17,18 +16,17 @@ export default function MainCalendar() {
   return (
     <>
       <div className={styles.container}>
-        {datesArray.map((row: any, rInd: number) =>
-          row.map((day: any, colInd: number) => (
-            <Fragment key={colInd}>
-              <DayView
-                day={day}
-                rInd={rInd}
-                handleClick={(e) => {
-                  e.preventDefault();
-                  handleClick(day);
-                }}
-              />
-            </Fragment>
+        {datesArray?.map((row: any, rInd: number) =>
+          row?.map((day: any, colInd: number) => (
+            <DayView
+              key={colInd}
+              day={day}
+              rInd={rInd}
+              handleClick={(e) => {
+                e.preventDefault();
+                handleClick(day);
+              }}
+            />
           ))
         )}
       </div>

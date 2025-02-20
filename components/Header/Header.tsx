@@ -1,6 +1,7 @@
-"use client";
+"use client"; // Ensure Zustand store runs only on the client
 
 import dayjs from "dayjs";
+import { useCallback } from "react";
 import { FcCalendar } from "react-icons/fc";
 import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import calendarStore from "../../app/store/calendarStore";
@@ -9,17 +10,13 @@ import styles from "./Header.module.scss";
 export default function Header() {
   const { setMonth, currMonth } = calendarStore();
 
-  const getCurrMonth = () => {
-    setMonth(dayjs().month());
-  };
+  const getChangedMonth = useCallback(
+    (offset: number) => {
+      setMonth(currMonth + offset);
+    },
+    [currMonth, setMonth]
+  );
 
-  const getPrvMonth = () => {
-    setMonth(currMonth - 1);
-  };
-
-  const getNxtMonth = () => {
-    setMonth(currMonth + 1);
-  };
   return (
     <div className={styles.mainContainer}>
       <div className={styles.mainHead}>
@@ -28,11 +25,14 @@ export default function Header() {
             <FcCalendar size={30} />
             <h2 className={styles.appName}>Calendar</h2>
             <div className={styles.nav}>
-              <button className={styles.button} onClick={getCurrMonth}>
+              <button
+                className={styles.button}
+                onClick={() => setMonth(dayjs().month())}
+              >
                 Today
               </button>
-              <MdNavigateBefore onClick={getPrvMonth} size={30} />
-              <MdNavigateNext onClick={getNxtMonth} size={30} />
+              <MdNavigateBefore onClick={() => getChangedMonth(-1)} size={30} />
+              <MdNavigateNext onClick={() => getChangedMonth(1)} size={30} />
             </div>
           </div>
         </div>

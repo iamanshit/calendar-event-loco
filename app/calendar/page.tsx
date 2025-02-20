@@ -1,13 +1,17 @@
 import Header from "@/components/Header/Header";
-import MainCalendar from "@/components/MainCalendar/MainCalendar";
-import SideBar from "@/components/SideBar/SideBar";
-
+import dynamic from "next/dynamic";
 import styles from "./calendar.module.scss";
+
+const MainCalendar = dynamic(
+  () => import("@/components/MainCalendar/MainCalendar")
+);
+const SideBar = dynamic(() => import("@/components/SideBar/SideBar"));
+
 export default function Calendar() {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.appShell}>
-        <Header></Header>
+        <Header />
         <div className={styles.wrapper}>
           <SideBar />
           <MainCalendar />

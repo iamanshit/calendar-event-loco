@@ -1,18 +1,18 @@
 "use client"; // Ensure Zustand store runs only on the client
 
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import { getMonth } from "../../utils/getMonthDays";
+import { getDaysOfCurrentMonth } from "../../utils/getMonthDays";
 
 const calendarStore = create(
   devtools(
     persist(
       (set) => ({
-        datesArray: getMonth(),
+        datesArray: getDaysOfCurrentMonth(),
         currMonth: dayjs().month(),
         setMonth: (index) => {
-          set({ datesArray: getMonth(index), currMonth: index });
+          set({ datesArray: getDaysOfCurrentMonth(index), currMonth: index });
         },
 
         isModalOpen: false,
@@ -27,15 +27,25 @@ const calendarStore = create(
           set({ isModalOpen: true, selectedEvent: event }),
 
         events: [],
+
         addEvent: (event) =>
           set((state) => ({ events: state.events.concat(event) })),
+
+        updateEvent: (updatedEvent) =>
+          set((state) => ({
+            events: state.events.map((event) =>
+              event.id === updatedEvent.id ? updatedEvent : event
+            ),
+            selectedEvent: null,
+          })),
+
         deleteEvent: (id) =>
           set((state) => ({
             events: state.events.filter((event) => event.id !== id),
             selectedEvent: null,
           })),
       }),
-      { name: "calendar_view", skipHydration: true }
+      { name: "calendar-storage", skipHydration: true }
     )
   )
 );

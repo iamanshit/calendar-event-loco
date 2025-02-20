@@ -1,25 +1,37 @@
-"use client";
+"use client"; // Ensure Zustand store runs only on the client
+
 import { useCallback, useEffect, useState } from "react";
-import useCalendarStore from "../../app/store/calendarStore";
+import calendarStore from "../../app/store/calendarStore";
 import styles from "./Modal.module.scss";
 
 export default function EventModal({ onClose }: { onClose: () => void }) {
-  const { userSelectedDate, addEvent, deleteEvent, closeModal, selectedEvent } =
-    useCalendarStore();
+  const {
+    userSelectedDate,
+    addEvent,
+    updateEvent,
+    deleteEvent,
+    closeModal,
+    selectedEvent,
+  } = calendarStore();
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    if (
-      selectedEvent &&
-      (selectedEvent.title !== title || selectedEvent.description !== desc)
-    ) {
+    if (selectedEvent) {
       setTitle(selectedEvent.title);
       setDesc(selectedEvent.description);
     }
-  }, [selectedEvent, title, desc]);
+  }, [selectedEvent]);
+
+  const checkError = (title, desc) => {
+    if (!title.trim()) setErrorMessage("Title is required.");
+    if (!desc.trim()) setErrorMessage("Description is required.");
+    if (!title.trim() && !desc.trim())
+      setErrorMessage("Title and description are required.");
+    setShowError(true);
+  };
 
   const handleAddEvent = useCallback(() => {
     if (title.trim() && desc.trim()) {
@@ -35,14 +47,12 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
       closeModal();
       return;
     }
-    if (!title.trim()) setErrorMessage("Title is required.");
-    if (!desc.trim()) setErrorMessage("Description is required.");
-    setShowError(true);
+    checkError(title, desc);
   }, [title, desc, userSelectedDate, addEvent, closeModal]);
 
-  const handleUpdateEvent = () => {
+  const handleUpdateEvent = useCallback(() => {
     if (title.trim() && desc.trim()) {
-      addEvent({
+      updateEvent({
         id: selectedEvent.id,
         date: selectedEvent.date,
         title: title.trim(),
@@ -52,18 +62,19 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
       closeModal();
       return;
     }
-    if (!title.trim()) setErrorMessage("Title is required.");
-    if (!desc.trim()) setErrorMessage("Description is required.");
-    setShowError(true);
-  };
+    checkError(title, desc);
+  }, [title, desc, addEvent, selectedEvent, closeModal]);
 
-  const handleDeleteEvent = (id: number) => {
-    deleteEvent(id);
-    setShowError(false);
-    closeModal();
-    setTitle("");
-    setDesc("");
-  };
+  const handleDeleteEvent = useCallback(
+    (id: number) => {
+      deleteEvent(id);
+      setShowError(false);
+      closeModal();
+      setTitle("");
+      setDesc("");
+    },
+    [closeModal, deleteEvent]
+  );
 
   return (
     <div className={styles.modal}>
@@ -71,7 +82,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
         <h2>
           {selectedEvent
             ? `Event for ${selectedEvent?.date}`
-            : `Add Event for ${userSelectedDate.format("DD/MM/YYYY")}`}
+            : `Add Event for ${userSelectedDate?.format("DD/MM/YYYY")}`}
         </h2>
         <input
           type="text"
@@ -85,11 +96,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
         />
-        {showError && (
-          <div className={styles.error}>
-            <p>{error}</p>
-          </div>
-        )}
+        {showError && <p className={styles.error}>{errorMessage}</p>}
         <div className={styles.btnWrapperCtn}>
           <button onClick={selectedEvent ? handleUpdateEvent : handleAddEvent}>
             {" "}
@@ -99,7 +106,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
             className={styles.close}
             onClick={
               selectedEvent
-                ? () => handleDeleteEvent(selectedEvent.id)
+                ? () => handleDeleteEvent(selectedEvent?.id)
                 : onClose
             }
           >

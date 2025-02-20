@@ -1,7 +1,6 @@
 "use client"; // Ensure Zustand store runs only on the client
 
 import dayjs from "dayjs";
-import { useState } from "react";
 import calendarStore from "../../../app/store/calendarStore";
 import styles from "./DayView.module.scss";
 
@@ -15,7 +14,6 @@ export default function DayView({
   handleClick: (e: any) => void;
 }) {
   const { events, fetchSelectedEvent } = calendarStore();
-  const [fadeClass, setFadeClass] = useState(styles.fadeIn);
 
   const handleOnEventClick = (event: any) => {
     fetchSelectedEvent(event);
@@ -39,10 +37,10 @@ export default function DayView({
           {day.date() === 1 ? day.format("MMM D") : day.format("D")}
         </p>
         <>
-          {events && events.length > 0 && (
+          {events && events?.length > 0 && (
             <div className={styles.event}>
               {events.map((event: any, id: number) => {
-                if (event.date === day.format("DD/MM/YYYY")) {
+                if (event?.date === day.format("DD/MM/YYYY")) {
                   return (
                     <p
                       onClick={(e) => {
@@ -51,7 +49,7 @@ export default function DayView({
                       }}
                       key={id}
                     >
-                      {event.title.slice(0, 10)}
+                      {event?.title.slice(0, 10)}
                     </p>
                   );
                 }
