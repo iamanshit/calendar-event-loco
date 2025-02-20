@@ -1,26 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --main-bg-color: #1B1B1B;
-  --primary-color:  #1B1B1B;
-  --secondary-color: #131314;
-  --main-text-color: #F8F8F2;
-  --border-color: #333537;
-  --event-color: #F44336;
-  --accent-color: #A0153E;
-  --highlight-color: #727d73;
-  --highlight-color-2: #e16a54;
-  --error-color: #FF0000;
-  --base: 8px;
-  --base-2: 16px;
-  --base-3: 24px;
-  --base-4: 32px;
-  --base-5: 40px;
-  --base-6: 48px;
-  --base-7: 56px;
-}
+@use "./mixins" as *;
 
 * {
   margin: 0;
@@ -29,4 +7,31 @@
   outline: none;
   border: none;
   text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  //Colors for the application background
+  --primary-color: #1b1b1b;
+  --secondary-color: #131314;
+  --border-color: #333537;
+
+  //Colors for the application text
+  --primary-text-color: #f8f8f2;
+  --secondary-text-color: #e16a54;
+  --tertiary-text-color: #727d73;
+  --highlight-text-color: #a0153e;
+
+  //Colors for the application events
+  --event-color: #f44336;
+  --error-color: #ff0000;
+
+  //Sizes for the application
+  --vs: 4px;
+  --base: 8px;
+  --base-2: 16px;
+  --base-3: 24px;
+  --base-4: 32px;
+  --base-5: 40px;
+  --base-6: 48px;
 }
