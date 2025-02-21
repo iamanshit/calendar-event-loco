@@ -2,14 +2,17 @@
 
 import dayjs from "dayjs";
 import { Fragment, useMemo } from "react";
-import calendarStore from "../../app/store/calendarStore";
+import calendarStore, {
+  CalendarEventType,
+} from "../../app/store/calendarStore";
 import styles from "./SideBar.module.scss";
 
 export default function SideBar() {
   const { events }: any = calendarStore();
   const todayFirstTask = useMemo(() => {
     return events.filter(
-      (event: any) => event?.date === dayjs().format("DD/MM/YYYY")
+      (event: CalendarEventType) =>
+        event?.date.toString() === dayjs().format("DD/MM/YYYY")
     );
   }, [events]);
 

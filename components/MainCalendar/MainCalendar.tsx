@@ -2,22 +2,23 @@
 
 import DayView from "@/components/MainCalendar/DayView/DayView";
 import Modal from "@/components/Modal/Modal";
+import dayjs from "dayjs";
 import calendarStore from "../../app/store/calendarStore";
 import styles from "./MainCalendar.module.scss";
 
 export default function MainCalendar() {
-  const { datesArray, isModalOpen, openModal, closeModal, setDate }: any =
+  const { datesArray, isModalOpen, openModal, closeModal, setDate } =
     calendarStore();
 
-  const handleClick = (day: any) => {
+  const handleClick = (day: dayjs.Dayjs) => {
     openModal();
     setDate(day);
   };
   return (
     <>
       <div className={styles.container}>
-        {datesArray?.map((row: any, rInd: number) =>
-          row?.map((day: any, colInd: number) => (
+        {datesArray?.map((row, rInd: number) =>
+          row?.map((day, colInd: number) => (
             <DayView
               key={colInd}
               day={day}

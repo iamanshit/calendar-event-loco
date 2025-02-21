@@ -1,22 +1,22 @@
 "use client"; // Ensure Zustand store runs only on the client
 
 import dayjs from "dayjs";
-import calendarStore from "../../../app/store/calendarStore";
+import calendarStore, {
+  CalendarEventType,
+} from "../../../app/store/calendarStore";
 import styles from "./DayView.module.scss";
 
-export default function DayView({
-  day,
-  rInd,
-  handleClick,
-}: {
-  day: any;
+type DayViewProps = {
+  day: dayjs.Dayjs;
   rInd: number;
   handleClick: (e: any) => void;
-}) {
+};
+
+export default function DayView({ day, rInd, handleClick }: DayViewProps) {
   const { events, fetchSelectedEvent }: any = calendarStore();
   const dayObject = dayjs(day);
 
-  const handleOnEventClick = (event: any) => {
+  const handleOnEventClick = (event: CalendarEventType) => {
     fetchSelectedEvent(event);
   };
 
@@ -42,8 +42,8 @@ export default function DayView({
         <>
           {events && events?.length > 0 && (
             <div className={styles.event}>
-              {events.map((event: any, id: number) => {
-                if (event?.date === dayObject.format("DD/MM/YYYY")) {
+              {events.map((event: CalendarEventType, id: number) => {
+                if (event?.date.toString() === dayObject.format("DD/MM/YYYY")) {
                   return (
                     <p
                       onClick={(e) => {

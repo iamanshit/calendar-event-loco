@@ -14,7 +14,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
     deleteEvent,
     closeModal,
     selectedEvent,
-  }: any = calendarStore();
+  } = calendarStore();
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [showError, setShowError] = useState(false);
@@ -60,8 +60,8 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
   const handleUpdateEvent = useCallback(() => {
     if (title.trim() && desc.trim()) {
       updateEvent({
-        id: selectedEvent.id,
-        date: selectedEvent.date,
+        id: selectedEvent?.id ?? "",
+        date: selectedEvent?.date ?? "",
         title: title.trim(),
         description: desc.trim(),
       });
@@ -74,7 +74,8 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
   }, [title, desc, updateEvent, selectedEvent, closeModal]);
 
   const handleDeleteEvent = useCallback(
-    (id: number) => {
+    (id: string) => {
+      console.log(id);
       deleteEvent(id);
       setShowError(false);
       closeModal();
@@ -87,7 +88,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
   return (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
-        <div className={styles.closeIcon} onClick={onClose}>
+        <div className={styles.closeIcon} onClick={closeModal}>
           <IoCloseSharp size={30} />
         </div>
         <h2>
