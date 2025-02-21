@@ -27,19 +27,5 @@
   .container {
     width: calc(100%);
     margin: var(--base);
-    li {
-      &:nth-child(1) {
-        border-top-left-radius: var(--base) + var(--vs);
-      }
-      &:nth-child(7) {
-        border-top-right-radius: var(--base) + var(--vs);
-      }
-      &:nth-child(29) {
-        border-bottom-left-radius: var(--base) + var(--vs);
-      }
-      &:nth-child(35) {
-        border-bottom-right-radius: var(--base) + var(--vs);
-      }
-    }
   }
 }
