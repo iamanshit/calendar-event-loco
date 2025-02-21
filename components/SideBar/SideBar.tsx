@@ -9,6 +9,8 @@ import styles from "./SideBar.module.scss";
 
 export default function SideBar() {
   const { events }: any = calendarStore();
+
+  //gets first event of the current day
   const todayFirstTask = useMemo(() => {
     return events.filter(
       (event: CalendarEventType) =>

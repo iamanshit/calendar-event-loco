@@ -5,6 +5,7 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { getDaysOfCurrentMonth } from "../../utils/getMonthDays";
 
+//for calendar events
 export type CalendarEventType = {
   id: string;
   title: string;
@@ -12,6 +13,7 @@ export type CalendarEventType = {
   description: string;
 };
 
+//for calendar events
 type CalendarStore = {
   datesArray: dayjs.Dayjs[][];
   currMonth: number;

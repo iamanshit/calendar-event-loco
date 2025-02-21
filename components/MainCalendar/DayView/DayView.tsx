@@ -16,6 +16,7 @@ export default function DayView({ day, rInd, handleClick }: DayViewProps) {
   const { events, fetchSelectedEvent }: any = calendarStore();
   const dayObject = dayjs(day);
 
+  //sets the {selectedEvent} event in store to show in the modal
   const handleOnEventClick = (event: CalendarEventType) => {
     fetchSelectedEvent(event);
   };

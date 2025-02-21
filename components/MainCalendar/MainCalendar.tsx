@@ -10,6 +10,7 @@ export default function MainCalendar() {
   const { datesArray, isModalOpen, openModal, closeModal, setDate } =
     calendarStore();
 
+  // sets the date for which event is to be created
   const handleClick = (day: dayjs.Dayjs) => {
     openModal();
     setDate(day);

@@ -22,12 +22,14 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
   const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
+    //sets the event for updation
     if (selectedEvent) {
       setTitle(selectedEvent.title);
       setDesc(selectedEvent.description);
     }
   }, [selectedEvent]);
 
+  //for accurate error messages
   const checkError = (title: string, desc: string) => {
     if (!title.trim()) setErrorMessage("Title is required.");
     if (!desc.trim()) setErrorMessage("Description is required.");
@@ -36,10 +38,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
     setShowError(true);
   };
 
-  const enableUpdate = () => {
-    setIsUpdate(true);
-  };
-
+  //for event addition
   const handleAddEvent = useCallback(() => {
     if (title.trim() && desc.trim()) {
       addEvent({
@@ -57,6 +56,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
     checkError(title, desc);
   }, [title, desc, addEvent, userSelectedDate, closeModal]);
 
+  //for event updation
   const handleUpdateEvent = useCallback(() => {
     if (title.trim() && desc.trim()) {
       updateEvent({
@@ -73,6 +73,7 @@ export default function EventModal({ onClose }: { onClose: () => void }) {
     checkError(title, desc);
   }, [title, desc, updateEvent, selectedEvent, closeModal]);
 
+  //for event deletion
   const handleDeleteEvent = useCallback(
     (id: string) => {
       console.log(id);
